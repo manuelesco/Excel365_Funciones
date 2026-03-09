@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funciones en Microsoft Excel 365</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #217346 0%, #2b8856 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .intro {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            text-align: justify;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .tab-button {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #217346 0%, #2b8856 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .tab-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(33, 115, 70, 0.4);
+        }
+        
+        .tab-button.active {
+            background: linear-gradient(135deg, #185c37 0%, #1f6b42 100%);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+        }
+        
+        .content-section {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .content-section.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .component-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #217346;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .component-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+        
+        .component-card h3 {
+            color: #217346;
+            margin-bottom: 10px;
+            font-size: 1.5em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .component-card .icon {
+            font-size: 1.2em;
+        }
+        
+        .component-image {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            border-radius: 8px;
+            margin: 15px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border: 2px solid #e0e0e0;
+        }
+        
+        .component-details {
+            display: none;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid #217346;
+            color: #555;
+        }
+        
+        .component-card.expanded .component-details {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+        
+        @keyframes slideDown {
+            from { opacity: 0; max-height: 0; }
+            to { opacity: 1; max-height: 1000px; }
+        }
+        
+        .component-card.expanded h3::after {
+            content: " ▼";
+            font-size: 0.8em;
+        }
+        
+        .component-card:not(.expanded) h3::after {
+            content: " ▶";
+            font-size: 0.8em;
+        }
+        
+        .tips-list {
+            background: #fff9e6;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid #ffd700;
+            margin-top: 20px;
+        }
+        
+        .tips-list h3 {
+            color: #e69500;
+            margin-bottom: 15px;
+        }
+        
+        .tips-list li {
+            margin-left: 20px;
+            margin-bottom: 10px;
+            color: #666;
+        }
+               
+		footer {
+            background: white;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .search-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #217346;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        
+        .search-box input:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(33, 115, 70, 0.3);
+        }
+
+        .formula-example {
+            background: #f0fff0;
+            padding: 12px 16px;
+            border-left: 5px solid #4CAF50;
+            margin: 12px 0;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 1.05em;
+            border-radius: 4px;
+        }
+		
+		.parametros {
+            background: #eef6ff;
+            <!-- padding: 12px 16px; -->
+			padding-left: 16px;
+			padding-right: 16px;
+            border-left: 5px solid #3f7edc;
+            margin: 12px 0;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 1.05em;
+            border-radius: 4px;
+        }
+		
+		.parametros ol, 
+		.parametros ul {
+			list-style-position: inside;
+			padding-top: 12px;
+			padding-bottom: 12px;
+			text-align: justify;
+		}
+		
+		.ejemplo {
+            background: #fff9e6;
+            padding: 12px 16px;
+			padding-left: 16px;
+			padding-right: 16px;
+            border-left: 5px solid #e6b800;
+            margin: 12px 0;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 1.05em;
+            border-radius: 4px;
+        }
+
+        .error-box {
+            background: #fff5f5;
+            padding: 12px 16px;
+            border-left: 5px solid #e74c3c;
+            margin: 12px 0;
+            border-radius: 4px;
+        }
+		
+		ol, ul {
+			list-style-position: inside;
+			padding-left: 20px; 
+		}
+		
+		.priority-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px;
+            margin-bottom: 8px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+		
+		.priority-num {
+			background: #217346;
+			color: white;
+			width: 30px;
+			height: 30px;
+			display: flex;
+			align-items: flex-start;
+			justify-content: center;
+			padding-top: 2px;      /* opcional */
+			border-radius: 50%;
+			font-weight: bold;
+			flex-shrink: 0;
+		}
+		
+		p {
+			text-align: justify;
+		}
+		
+		footer p {
+			text-align: center;
+		}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Microsoft Excel 365 - Funciones y Herramientas Esenciales</h1>
+            <h1>🧮 FUNCIONES</h1>
+        </header>
+        
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="🔍 Buscar en la guía...">
+        </div>
+        
+        <div class="intro">
+            <h2><span class="icon">🧮</span> Introducción</h2>			
+			<p>Las funciones son fórmulas predefinidas que realizan cálculos específicos usando valores que tú proporcionas (argumentos). Todas comienzan con el signo <strong>=</strong> y su nombre, seguido de paréntesis que contienen los argumentos.</p>
+            <p>Esta guía explica las partes de una función y las funciones más utilizadas en el día a día.</p>
+        </div>
+        
+        <div class="nav-tabs">
+            <button class="tab-button active" onclick="showTab('operaciones')">🛠️ Funciones y Errores Comunes</button>            
+			<button class="tab-button" onclick="showTab('consejos')">💡 Consejos y Atajos</button>
+        </div>
+        
+        <div id="operaciones" class="content-section active">
+            <h2>Conceptos y Funciones Básicas</h2>           
+            
+            <div class="component-card" onclick="toggleCard(this)">
+                <h3><span class="icon">🧩</span> Partes de una función</h3>
+                <div class="component-details">                    
+                    <p>Una función típica se compone de:</p>
+					
+					<div class="priority-item">
+						<div class="priority-num">1</div> 
+						<div>
+							<strong>El Signo de Igual (=)</strong>  
+							<p>Todas las funciones (y fórmulas) comienzan con el signo igual. Le indica a Excel que lo que sigue es un cálculo, no texto.</p>
+						</div>
+					</div>
+					
+					<div class="priority-item">
+						<div class="priority-num">2</div> 
+						<div>
+							<strong>Nombre de la función</strong>  
+							<p>Es la palabra que identifica qué operación vas a realizar. Ejemplos: SUMA, PROMEDIO, SI, BUSCARV, etc.</p>
+						</div>
+					</div>
+					
+					<div class="priority-item">
+						<div class="priority-num">3</div> 
+						<div>
+							<strong>Paréntesis de apertura (</strong>  
+							<p>Abre el conjunto de argumentos que la función necesita para trabajar.</p>
+						</div>
+					</div>
+					
+					<div class="priority-item">
+						<div class="priority-num">4</div> 
+						<div>
+							<strong>Argumentos</strong>  
+							<p>Son los datos, valores, referencias de celdas o rangos que la función necesita 
+							para hacer su trabajo. Los argumentos se separan con coma (,) o con punto y coma (;) dependiendo de tu configuración regional.</p>
+						</div>
+					</div>
+					
+					<div class="priority-item">
+						<div class="priority-num">5</div> 
+						<div>
+							<strong>Paréntesis de cierre )</strong>  
+							<p>Cierra el conjunto de argumentos y completa la función.</p>
+						</div>
+					</div>
+													
+					<strong>Ejemplos:</strong>
+                    <div class="formula-example">
+                        =SUMA(A1:A10)
+                    </div>
+                    <div class="formula-example">
+                        =PROMEDIO(B2:B20, C2:C20)
+                    </div>
+					<div class="formula-example">
+                        =CONTAR(B3:F3)
+                    </div>
+                </div>
+            </div>
+			
+			<div class="component-card" onclick="toggleCard(this)">
+                <h3><span class="icon">▦</span> Rango</h3>
+                <div class="component-details">                    
+                    <p>
+						Es un grupo de celdas seleccionadas que se pueden manipular como una unidad. Puede ser tan simple como una sola celda 
+						o tan extenso como múltiples filas y columnas.
+						<br>
+						Los rangos se identifican mediante referencias que usan la columna y la fila. Por ejemplo:
+					</p>
+					<div class="formula-example">
+                        <strong>Sintaxis:</strong><br>
+						CeldaInicial:CeldaFinal
+                    </div>
+					<p>
+						Los dos puntos (:) en Excel son el <strong>operador de rango</strong> y se usan para indicar un grupo continuo de celdas entre dos 
+						puntos de referencia.
+						<br>
+						<strong>Ejemplos:</strong>
+					</p>
+					<ul>
+                        <li><strong>A1</strong> → es una celda</li>
+                        <li><strong>A1:A10</strong> → es un rango de 10 celdas de la columna A</li>
+                        <li><strong>A1:C5</strong> → es un rango rectangular que abarca desde A1 hasta C5</li>						
+                        <li><strong>A:A</strong> → es toda la columna A</li>
+                        <li><strong>1:1</strong> → es toda la fila 1</li>
+                    </ul>
+					
+					<p>
+						Los rangos son fundamentales en Excel porque te permiten aplicar formatos, fórmulas o funciones a múltiples celdas 
+						simultáneamente. Por ejemplo, puedes sumar un rango con =SUMA(A1:A10), aplicar color de fondo a todas las celdas del 
+						rango a la vez, o crear gráficos basados en rangos de datos.
+						<br>
+						También puedes asignarles nombres personalizados a los rangos (como "Ventas" o "Gastos") para hacer tus fórmulas más 
+						legibles. Por ejemplo, en lugar de escribir =SUMA(B2:B50), podrías usar =SUMA(Ventas).
+					</p>
+                    
+                </div>
+            </div>
+            
+            <div class="component-card" onclick="toggleCard(this)">
+                <h3><span class="icon">∑</span> SUMA – Suma valores o rangos</h3>
+                <div class="component-details">
+                    <!--<p>Suma todos los números en un rango o lista de valores.</p>-->
+					<p>
+						Suma (adiciona) todos los valores numéricos de un rango de celdas.
+						<br>
+						<strong>Nota importante:</strong> SUMA ignora texto y celdas vacías, pero SÍ suma celdas con valor 0. Si una celda contiene un error (#DIV/0!, #N/A, etc.), 
+						SUMA devolverá ese error.
+						<br>
+						<strong>Usos comunes:</strong>
+						<ul>
+							<li>Calcular totales de ventas</li>
+							<li>Sumar gastos mensuales</li>
+							<li>Totalizar inventarios</li>
+							<li>Calcular ingresos totales</li>
+							<li>Sumar horas trabajadas</li>
+							<li>Totalizar calificaciones</li>
+						</ul>
+					</p>		
+					<strong>Sintaxis:</strong>
+					<div class="formula-example">                        
+						=SUMA(número1, [número2], [número3], ...)
+                    </div>
+					<strong>Parámetros:</strong>
+					<div class="parametros">  
+						<ul>
+							<li><strong>número1</strong> (obligatorio): Primer número, rango de celdas o referencia a sumar</li>
+							<li><strong>número2, número3...</strong> (opcional): Números, rangos o referencias adicionales. Puede tener hasta 255 argumentos</li>							
+						</ul>
+					</div>
+					<strong>Ejemplos:</strong>
+                    <div class="ejemplo">
+                        <strong>=SUMA(A1:A10)</strong>                  → Suma todos los valores numéricos desde la celda A2 hasta A10 y devuelve el total. 
+                    </div>
+                    <div class="ejemplo">
+                        <strong>=SUMA(A1:A5, C3:C8, 500)</strong>       → Total combinado de tres fuentes.
+						<br>
+						Suma el rango A1:A5 más el rango C3:C8 más 500.
+                    </div>
+                    <div class="ejemplo">
+                        <strong>=SUMA(B:B)</strong>                     → Suma toda la columna B.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="component-card" onclick="toggleCard(this)">
+                <h3><span class="icon">📊</span> PROMEDIO – Calcula la media aritmética</h3>
+                <div class="component-details">
+					<p>
+						Calcula el promedio (media aritmética) de un conjunto de valores numéricos.
+						<br>
+						<strong>Nota importante:</strong> PROMEDIO ignora celdas vacías y texto, pero cuenta celdas con valor 0.
+						<br>
+						<strong>Usos comunes:</strong>
+						<ul>
+							<li>Calcular promedio de calificaciones</li>
+							<li>Promedio de ventas diarias</li>
+							<li>Temperatura promedio</li>
+							<li>Rendimiento promedio de empleados</li>
+							<li>Precio promedio de productos</li>
+							<li>Tiempo promedio de entrega</li>
+						</ul>
+					</p>	
+					<strong>Sintaxis:</strong>
+					<div class="formula-example">                        
+						=PROMEDIO(número1, [número2], [número3], ...)
+                    </div>
+					<strong>Parámetros:</strong>
+					<div class="parametros">  
+						<ul>
+							<li><strong>número1</strong> (obligatorio): Primera celda, rango o valor numérico</li>
+							<li><strong>número2, número3...</strong> (opcional): Celdas, rangos o valores adicionales. Puede tener hasta 255 argumentos</li>							
+						</ul>
+					</div>
+					<strong>Ejemplos:</strong>
+                    <div class="ejemplo">
+                        <strong>=PROMEDIO(B2:B6)</strong> → Calcula el promedio de un rango.
+						<br>
+						Suma los valores desde B2 hasta B6 y los divide entre 5.
+                    </div>
+                    <div class="ejemplo">
+                        <strong>=PROMEDIO(B2:B20, C2:C20)</strong>  → Calcula el promedio general de datos distribuidos en diferentes columnas.
+						<br>
+						Suma todos los valores de los dos rangos (B2:B20 y C2:C20), luego divide entre el total de celdas numéricas encontradas en los dos rangos. 						
+                    </div>
+                </div>
+            </div>
+            
+            <div class="component-card" onclick="toggleCard(this)">
+                <h3><span class="icon">123</span> CONTAR y CONTARA – Conteo de celdas</h3>
+                <div class="component-details">
+					<p>
+						<strong>CONTAR</strong>: Cuenta cuántas celdas contienen valores numéricos en un rango.
+						<br>
+						<strong>Nota importante:</strong> Solo cuenta celdas con NÚMEROS. Ignora texto, celdas vacías, valores lógicos y errores.
+						<br>
+						<strong>Usos comunes:</strong>
+						<ul>
+							<li>Contar cuántos estudiantes presentaron examen</li>
+							<li>Contar productos con precio asignado</li>
+							<li>Contar registros numéricos completos</li>
+							<li>Validar cantidad de datos ingresados</li>
+							<li>Contar transacciones registradas</li>
+							<li>Verificar completitud de datos numéricos</li>
+						</ul>
+					</p>	
+					<strong>Sintaxis:</strong>
+					<div class="formula-example">                        
+						=CONTAR(valor1, [valor2], [valor3], ...)
+                    </div>
+					<strong>Parámetros:</strong>
+					<div class="parametros">  
+						<ul>
+							<li><strong>número1</strong> (obligatorio): Primer rango, celda o valor a evaluar</li>
+							<li><strong>número2, número3...</strong> (opcional): Rangos, celdas o valores adicionales. Puede tener hasta 255 argumentos</li>							
+						</ul>
+					</div>
+					<strong>Ejemplos:</strong>
+                    <div class="ejemplo">
+                        <strong>=CONTAR(A2:A100)</strong> → Cuenta cuántos números hay desde A2 hasta A100.
+                    </div>
+					<div class="ejemplo">
+                        <strong>CONTAR(A2:A10, C2:C10, E2:E10)</strong>  → Cuenta datos numéricos en múltiples rangos.
+						<br>
+						Revisa las tres columnas independientemente y cuenta solo celdas con números en cada una.
+					</div>
+					<br>
+					
+					<p>
+						<strong>CONTARA</strong>: Cuenta cuántas celdas NO están vacías (contienen cualquier tipo de dato: texto, números, fechas, errores, etc.).
+						<br>
+						<strong>Nota importante:</strong>  Cuenta TODO excepto celdas completamente vacías. Cuenta números, texto, fechas, valores lógicos, errores, incluso espacios.
+						<br>
+						<strong>Usos comunes:</strong>
+						<ul>
+							<li>Contar asistentes a un evento (nombres registrados)</li>
+							<li>Contar respuestas en encuestas</li>
+							<li>Contar empleados en lista</li>
+							<li>Validar cuántos campos fueron llenados</li>
+							<li>Contar registros completos</li>
+							<li>Verificar datos ingresados sin importar tipo</li>
+						</ul>
+					</p>	
+					<strong>Sintaxis:</strong>
+					<div class="formula-example">                        
+						=CONTARA(valor1, [valor2], [valor3], ...)
+                    </div>
+					<strong>Parámetros:</strong>
+					<div class="parametros">  
+						<ul>
+							<li><strong>valor1</strong> (obligatorio): Primer rango, celda o valor a evaluar</li>
+							<li><strong>valor2, valor3...</strong> (opcional): Rangos, celdas o valores adicionales. Puede tener hasta 255 argumentos</li>							
+						</ul>
+					</div>
+					<strong>Ejemplos:</strong>
+                    <div class="ejemplo">
+                        <strong>=CONTARA(A1:A50)</strong> → Revisa cada celda del rango A1:A50.
+						<br>
+						Devuelve el total de celdas que contienen ALGO. Si hay 40 datos y 10 celdas vacías, devuelve 40.
+                    </div>
+					<div class="ejemplo">
+                        <strong>=CONTARA(C2:C7,E5,F5,"Jason","Chris")</strong>  → Cuenta en múltiples rangos, celdas y valores.
+						<br>
+						Cuenta el número de celdas que no están vacías en el rango C2:C7 y las celdas E5 y F5. Luego, suma 2 más debido a los dos argumentos de valor "Jason" y "Chris".
+					</div>
+				
+                </div>
+            </div>
+            
+            <div class="component-card" onclick="toggleCard(this)">
+                <h3><span class="icon">⬆️⬇️</span> MAX y MIN – Valor máximo y mínimo</h3>
+                <div class="component-details">
+										<p>
+						<strong>MAX</strong>: Encuentra y devuelve el valor numérico más grande (máximo) de un conjunto de valores.
+						<br>
+						<strong>Nota importante:</strong> MAX ignora texto, celdas vacías y valores lógicos. Solo evalúa números.
+						<br>
+						<strong>Usos comunes:</strong>
+						<ul>
+							<li>Identificar la venta más alta</li>
+							<li>Encontrar la calificación máxima</li>
+							<li>Detectar temperatura más alta</li>
+							<li>Encontrar el precio más caro</li>
+							<li>Identificar el mejor rendimiento</li>
+							<li>Establecer récords o metas</li>
+							<li>Detectar valores máximos para análisis</li>
+						</ul>
+					</p>	
+					<strong>Sintaxis:</strong>
+					<div class="formula-example">                        
+						=MAX(número1, [número2], [número3], ...)
+                    </div>
+					<strong>Parámetros:</strong>
+					<div class="parametros">  
+						<ul>
+							<li><strong>número1</strong> (obligatorio): Primer número, rango o referencia</li>
+							<li><strong>número2, número3...</strong> (opcional): Números, rangos o referencias adicionales. Puede tener hasta 255 argumentos</li>							
+						</ul>
+					</div>
+					<strong>Ejemplos:</strong>
+                    <div class="ejemplo">
+                        <strong>=MAX(B2:B30)</strong> → Revisa todos los números en el rango B2:B30.
+						<br>
+						Compara todos los valores y devuelve el más grande.
+                    </div>
+					<div class="ejemplo">
+                        <strong>CONTAR(A2:A10, C2:C10, E2:E10)</strong>  → Valor máximo entre tres grupos.
+						<br>
+						Evalúa todos los valores en los tres rangos simultáneamente. Obtiene el máximo de cada rango, los compara y regresa el valor más alto. No devuelve el máximo 
+						de cada rango, sino el máximo global de todos.
+					</div>
+					<br>
+					
+					<p>
+						<strong>MIN</strong>: Encuentra y devuelve el valor numérico más pequeño (mínimo) de un conjunto de valores.
+						<br>
+						<strong>Nota importante:</strong> MIN ignora texto, celdas vacías y valores lógicos. Solo evalúa números. Incluye números negativos.
+						<br>
+						<strong>Usos comunes:</strong>
+						<ul>
+							<li>Identificar inventario más bajo (alertas de stock)</li>
+							<li>Encontrar el precio más barato</li>
+							<li>Detectar temperatura mínima</li>
+							<li>Identificar la calificación más baja</li>
+							<li>Encontrar el menor tiempo de entrega</li>
+							<li>Detectar problemas de rendimiento</li>
+							<li>Establecer valores base o mínimos</li>
+						</ul>
+					</p>	
+					<strong>Sintaxis:</strong>
+					<div class="formula-example">                        
+						=MIN(número1, [número2], [número3], ...)
+                    </div>
+					<strong>Parámetros:</strong>
+					<div class="parametros">  
+						<ul>
+							<li><strong>número1</strong> (obligatorio): Primer número, rango o referencia</li>
+							<li><strong>número2, número3...</strong> (opcional): Números, rangos o referencias adicionales. Puede tener hasta 255 argumentos</li>							
+						</ul>
+					</div>
+					<strong>Ejemplos:</strong>
+                    <div class="ejemplo">
+                        <strong>=MIN(C2:C100)</strong> → Revisa todos los números en el rango C2:C100, compara todos los valores y devuelve el más pequeño.
+                    </div>
+					<div class="ejemplo">
+                        <strong>=MIN(150, 200, A5, C10, D2:D5)</strong>  → Encuentra el número más pequeño entre varias opciones.
+						<br>Evalúa todos los argumentos proporcionados: el valor fijo 150, el valor fijo 200, el valor en celda A5, el valor en C10, y todos los valores en el rango D2:D5. 
+						Compara todos estos números y devuelve el número menor encontrado entre todas las opciones evaluadas.
+					</div>
+
+                </div>
+            </div>
+			
+			<div class="component-card" onclick="toggleCard(this)">
+                <h3><span class="icon">✅</span> SI – Condición lógica simple</h3>
+                <div class="component-details">                                       
+					<p>
+						Evalúa una condición lógica y devuelve un valor si es verdadera y otro valor diferente si es falsa.						
+						<br>
+						<strong>Usos comunes:</strong>
+						<ul>
+							<li>Clasificar calificaciones (Aprobado/Reprobado)</li>
+							<li>Calcular bonos según cumplimiento de metas</li>
+							<li>Validar datos (Mayor/Menor de edad)</li>
+							<li>Aplicar descuentos condicionalmente</li>
+							<li>Generar alertas (Reabastecer/Stock suficiente)</li>
+							<li>Categorizar datos automáticamente</li>
+						</ul>
+					</p>					
+					<strong>Sintaxis:</strong>
+					<div class="formula-example">                     
+						=SI(prueba_lógica, valor_si_verdadero, [valor_si_falso])
+                    </div>
+					<strong>Parámetros:</strong>
+					<div class="parametros">    
+						<ul>
+							<li><strong>prueba_lógica</strong> (obligatorio): La condición a evaluar (devuelve VERDADERO o FALSO)</li>
+							<li><strong>valor_si_verdadero</strong> (obligatorio): Qué devolver si la condición es verdadera</li>
+							<li><strong>valor_si_falso</strong> (opcional): Qué devolver si la condición es falsa. Si se omite, devuelve FALSO</li>
+						</ul>
+					</div>
+                    <strong>Ejemplos:</strong>
+					<div class="ejemplo">
+                        <strong>=SI(B2>=60, "Aprobado", "Reprobado")</strong> → Determina si pasó el examen.
+						<br>
+						Evalúa si la calificación en B2 es mayor o igual a 60. 
+						Si B2>=60 es VERDADERO, devuelve "Aprobado". Si B2>=60 es FALSO, devuelve "Reprobado".
+                    </div>
+                    <div class="ejemplo">
+                        <strong>=SI(D2&lt;10, "REABASTECER", "Stock suficiente")</strong> → Genera alerta de inventario bajo.
+						<br>
+						Compara el stock en D2 con 10. Si D2&lt;10 es VERDADERO, 
+						devuelve "REABASTECER" como alerta. Si D2&lt;10 es FALSO, devuelve "Stock suficiente" indicando que no hay problema.
+                    </div>
+                    <div class="ejemplo">
+                        <strong>=SI(C2>100000, C2*0.10, 0)</strong> → Bono del 10% si superó $100,000.
+						<br>
+						Verifica si las ventas en C2 son mayores a 100000. Si se cumple la condición (VERDADERO), calcula y devuelve C2*0.10. Si no se cumple la condición (FALSO), devuelve 0.
+                    </div>
+					
+					
+                </div>
+            </div>
+			
+			<div class="component-card" onclick="toggleCard(this)">
+                <h3><span class="icon">∑✅</span> SUMAR.SI – Suma condicional</h3>
+                <div class="component-details">
+                    <p>
+						Suma solo los valores que cumplen una condición específica.
+						<br>
+						<strong>Nota importante:</strong> Los criterios numéricos con operadores deben ir entre comillas: ">100", "<=50", "<>0". Los criterios de texto también van entre 
+						comillas: "Norte", "Laptop". <!--Puedes usar comodines: "*" (cualquier cantidad de caracteres) y "?" (un carácter).-->
+						<br>
+						<strong>Usos comunes:</strong>
+						<ul>
+							<li>Sumar ventas de una región específica</li>
+							<li>Total de gastos de una categoría</li>
+							<li>Sumar ventas de un producto específico</li>
+							<li>Calcular ingresos por departamento</li>
+							<li>Sumar horas extras de empleados</li>
+							<li>Total de ventas mayores a cierto monto</li>
+						</ul>
+					</p>					
+					<strong>Sintaxis:</strong>
+					<div class="formula-example">                     
+						=SUMAR.SI(rango, criterio, [rango_suma])						
+                    </div>
+					<strong>Parámetros:</strong>
+					<div class="parametros">  
+						<ul>
+							<li><strong>rango</strong> (obligatorio): El rango de celdas donde se evaluará el criterio</li>
+							<li><strong>criterio</strong> (obligatorio): La condición que deben cumplir las celdas</li>
+							<li><strong>rango_suma</strong> (opcional): El rango de celdas que se sumarán. Si se omite, suma las celdas del primer rango</li>
+						</ul>
+					</div>
+					<strong>Ejemplos:</strong>
+                    <div class="ejemplo">
+                        <strong>=SUMAR.SI(A:A, "Norte", B:B)</strong> → Total de ventas de la región Norte.
+						<br>
+						Busca en la columna A y donde encuentre "Norte", suma los valores correspondientes de la columna B
+                    </div>
+                    <div class="ejemplo">
+                        <strong>=SUMAR.SI(A:A, ">10000")</strong> → Total de ventas mayores a 10000.
+						<br>
+						Evalúa la columna A y suma solo los valores mayores a 10000
+                    </div>
+                    <div class="ejemplo">
+                        <strong>=SUMAR.SI(A:A, "Laptop", C:C)</strong> → Total de ventas de Laptop.
+						<br>
+						Busca en columna A y donde encuentre "Laptop", suma los valores correspondientes de la columna C
+                    </div>
+                </div>
+            </div>
+            
+            <div class="component-card" onclick="toggleCard(this)">
+                <h3><span class="icon">📊✅</span> PROMEDIO.SI – Promedio condicional</h3>
+                <div class="component-details">
+                    <p>
+						Calcula el promedio solo de valores que cumplen una condición.
+						<br>
+						<strong>Nota importante:</strong> PROMEDIO.SI ignora celdas vacías y texto en el rango_promedio, pero SÍ cuenta celdas con valor 0. Los criterios con operadores 
+						numéricos deben ir entre comillas: ">50", "<=100", "<>0".
+						<br>
+						<strong>Usos comunes:</strong>
+						<ul>
+							<li>Promedio de calificaciones de un grupo específico</li>
+							<li>Promedio de ventas de un vendedor</li>
+							<li>Temperatura promedio en días soleados</li>
+							<li>Promedio de ingresos por categoría de producto</li>
+							<li>Rendimiento promedio de un departamento</li>
+							<li>Promedio de valores que superan un umbral</li>
+						</ul>
+					</p>					
+					<strong>Sintaxis:</strong>
+					<div class="formula-example">                     
+						=PROMEDIO.SI(rango, criterio, [rango_promedio])						
+                    </div>
+					<strong>Parámetros:</strong>
+					<div class="parametros">  
+						<ul>
+							<li><strong>rango</strong> (obligatorio): El rango de celdas donde se evaluará el criterio</li>
+							<li><strong>criterio</strong> (obligatorio): La condición que deben cumplir las celdas</li>
+							<li><strong>rango_promedio</strong> (opcional): El rango de celdas del cual se calculará el promedio. Si se omite, promedia las celdas del primer rango</li>
+						</ul>
+					</div>
+					<strong>Ejemplos:</strong>
+                    <div class="ejemplo">
+                        <strong>=PROMEDIO.SI(B1:B10, "Matemáticas", C1:C10)</strong> → Promedio de calificaciones en Matemáticas.
+						<br>
+						Busca en la columna B en el rango B1:B10 todas las celdas que contengan "Matemáticas". 
+						Cuando encuentra "Matemáticas", toma la calificación correspondiente de C. Suma todas las calificaciones corrspondientes a "Matemáticas", las divide entre el total
+						de dichas calificaciones y devuelve el promedio.
+                    </div>
+                    <div class="ejemplo">
+                        <strong>=PROMEDIO.SI(A:A, "Norte", D:D)</strong> → Promedio de ventas en el Norte.
+						<br>
+						Examina la columna A y donde encuentra "Norte", toma el valor correspondiente de la 
+						columna D. Si hay 5 ventas en el Norte, las suma, las divide entre 5 y devuelve el promedio de ventas del Norte. Ignora completamente las ventas que no sean del "Norte".
+                    </div>
+                    <div class="ejemplo">
+                        <strong>=PROMEDIO.SI(B:B, ">5000")</strong> → Promedio de ventas mayores que 5000.
+						<br>
+						Evalúa cada celda en la columna B. Las celdas mayores que 5000 las suma, al finalizar
+						divide la suma entra el número total de celdas que cumplieron la condición para obtener el promedio y lo devuelve.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="component-card" onclick="toggleCard(this)">
+                <h3><span class="icon">123✅</span> CONTAR.SI – Conteo condicional</h3>
+                <div class="component-details">
+					<p>
+						Cuenta cuántas celdas cumplen una condición específica.
+						<br>
+						<strong>Nota importante:</strong>
+						<br>
+						CONTAR.SI cuenta tanto números como texto que cumplan el criterio.
+						<!--
+						<br>
+						Usa comodines: "*" para cualquier cantidad de caracteres y "?" para un 
+						solo carácter. 
+						<br>
+						Ejemplo: "M" cuenta todo lo que empiece con M. No distingue entre mayúsculas y minúsculas.
+						<br>
+						-->
+						<strong>Usos comunes:</strong>
+						<ul>
+							<li>Contar cuántos aprobaron (calificación >= 70)</li>
+							<li>Contar productos con stock bajo (&lt;10)</li>
+							<li>Contar ventas de un vendedor específico</li>
+							<li>Contar cuántos clientes son de una ciudad</li>
+							<li>Contar errores o valores específicos</li>
+							<li>Contar registros por categoría</li>
+						</ul>
+					</p>					
+					<strong>Sintaxis:</strong>
+					<div class="formula-example">                     
+						=CONTAR.SI(rango, criterio)
+                    </div>
+					<strong>Parámetros:</strong>
+					<div class="parametros">     
+						<ul>
+							<li><strong>rango</strong> (obligatorio): El rango de celdas donde buscar y contar</li>
+							<li><strong>criterio</strong> (obligatorio): La condición que deben cumplir las celdas para ser contadas</li>
+						</ul>
+					</div>					
+					<strong>Ejemplos:</strong>
+                    <div class="ejemplo">
+                        <strong>=CONTAR.SI(A1:A100; "México")</strong> → Cuenta cuántas celdas en el rando A1:A100 contienen la palabra "México".
+                    </div>
+                    <div class="ejemplo">
+                        <strong>=CONTAR.SI(B:B; "&lt;10")</strong> → Cuenta productos con stock crítico.
+						<br>
+						Contabiliza cada celda en la columna C que cumpla la condición y devuelve el total encontrado.
+                    </div>
+                    <div class="ejemplo">
+                        <strong>=CONTAR.SI(C2:C50; "Pendiente*")</strong> → Cuenta cuántas celdas en el rango C2:C50 contienen texto que comienza con la palabra "Pendiente", sin importar qué texto tenga después.
+                    </div>
+                </div>
+            </div>
+			
+			
+            
+            <div class="component-card" onclick="toggleCard(this)">
+                <h3><span class="icon">⚠️</span> Errores comunes en funciones</h3>
+                <div class="component-details">
+                    <div class="error-box">
+                        <strong>#DIV/0!</strong><br>
+                        Ocurre al dividir por cero.<br>
+                        Ejemplo: =A1/B1 cuando B1 = 0
+                    </div>
+                    <div class="error-box">
+                        <strong>#VALOR!</strong><br>
+                        Datos incorrectos en un argumento.<br>
+                        Ejemplo: =SUMA(A1:A10; "texto")
+                    </div>
+                    <div class="error-box">
+                        <strong>#NOMBRE?</strong><br>
+                        Nombre de función mal escrito o no existe.<br>
+                        Ejemplo: =SUMAR(A1:A10) → debe ser SUMA
+                    </div>
+                    <div class="error-box">
+                        <strong>#REF!</strong><br>
+                        Referencia eliminada o inválida.<br>
+                        Ejemplo: eliminar fila/columna usada en fórmula
+                    </div>
+                </div>
+            </div>
+        </div>
+		
+		<div id="consejos" class="content-section">
+            <h2>Consejos y Atajos Útiles</h2>
+            
+            <div class="tips-list">
+                <h3>💡 Recomendaciones prácticas</h3>
+                <ul>
+                    <li><strong>Ctrl + A</strong> dentro de una función → selecciona todo el argumento actual</li>
+                    <li><strong>Shift + F3</strong> → abre el cuadro de diálogo Insertar función</li>
+                    <li><strong>F4</strong> → cambia entre referencias relativas y absolutas</li>                    
+                    <li>Usa nombres de rango (Administrador de nombres) para hacer fórmulas más legibles</li>
+                    <li>Para evitar #DIV/0!: =SI.ERROR(A1/B1; 0) o =SI(B1=0; ""; A1/B1)</li>
+                    <li>Para evitar #NOMBRE?: revisa que el nombre de la función esté en mayúsculas y correcto</li>
+                </ul>
+            </div>
+            
+            <div class="component-card" style="margin-top: 20px;">
+                <h3><span class="icon">🎯</span> Conclusión</h3>
+                <p>Las funciones SUMA, PROMEDIO, CONTAR/CONTARA, MAX y MIN son las más utilizadas en cualquier tipo de análisis básico. Dominar sus argumentos, rangos y cómo manejar errores comunes te permitirá construir hojas de cálculo más robustas y profesionales en Excel 365.</p>
+            </div>
+        </div>
+
+                    
+        <footer>
+            <p>📚 Guía Interactiva de Excel 365</p>
+        </footer>
+    </div>
+    
+    <script>
+        function showTab(tabName) {
+            const sections = document.querySelectorAll('.content-section');
+            const buttons = document.querySelectorAll('.tab-button');
+            
+            sections.forEach(section => section.classList.remove('active'));
+            buttons.forEach(button => button.classList.remove('active'));
+            
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+        
+        function toggleCard(card) {
+            card.classList.toggle('expanded');
+        }
+        
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const cards = document.querySelectorAll('.component-card');
+            
+            cards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    card.style.display = 'block';
+                    if (searchTerm.length > 2) {
+                        card.classList.add('expanded');
+                    }
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            if (searchTerm === '') {
+                cards.forEach(card => {
+                    card.style.display = 'block';
+                    card.classList.remove('expanded');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
